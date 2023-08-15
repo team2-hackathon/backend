@@ -22,4 +22,4 @@ jobs:
           script: |
             cd /home/ubuntu/hackathon
             sudo git pull
-            pm2 restart
+            sudo pm2 restart
