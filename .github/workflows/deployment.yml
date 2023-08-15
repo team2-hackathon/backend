@@ -15,11 +15,12 @@ jobs:
       - run: npm ci
       - uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.LIGHTSAIL_HOST }}
-          username: ${{ secrets.LIGHTSAIL_USERNAME }}
-          key: ${{ secrets.LIGHTSAIL_KEY }}
+          host: ${{ secrets.AWS_HOST_IP }}
+          username: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.AWS_USER_NAME }}
           port: 22
           script: |
             cd /home/ubuntu/hackathon
+            sudo npm i 
             sudo git pull
             sudo pm2 restart
