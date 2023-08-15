@@ -36,7 +36,6 @@ jobs:
             sudo npm install 
             sudo pm2 restart
 
-
 # git add .
 # git commit -m 'develop'
 # git push origin development
