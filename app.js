@@ -37,16 +37,21 @@ app.get("/get", async (req, res) => {
 });
 
 //CREATE EXAMPLE
-app.post("/create", async (req, res) => {
+app.get("/create", async (req, res) => {
   const { username, email } = req.body;
   const connection = await db.promise().getConnection();
   try {
-    const query = "INSERT INTO users (username, email) VALUES (?, ?)";
-    const [result] = await connection.execute(query, [username, email]);
+    const query =
+      "INSERT INTO users (user_auth_id, user_name, user_email) VALUES (?, ?, ?)";
+    const [result] = await connection.execute(query, [
+      "4SsFJnfkN9Ouzsdpi3j9fyZ111",
+      "John",
+      "john@email.cim",
+    ]);
 
     res
       .status(201)
-      .json({ message: "User created successfully", userId: result.insertId });
+      .json({ message: "User added successfully", userId: result.insertId });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error creating user" });
