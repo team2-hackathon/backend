@@ -27,6 +27,7 @@ jobs:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_SSH_USER }}
           password: ${{ secrets.AWS_SSH_KEY }}
+          port: 22
           script: |
             whoami
             cd /home/ubuntu/backend
