@@ -14,10 +14,10 @@ jobs:
           node-version: "18"
       - run: npm ci
       - uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.AWS_HOST_IP }}
-          username: ${{ secrets.AWS_SSH_KEY }}
-          key: ${{ secrets.AWS_USER_NAME }}
+        env:
+          host: ${{secrets.AWS_HOST_IP}}
+          username: ${{secrets.AWS_SSH_KEY}}
+          key: ${{secrets.AWS_USER_NAME}}
           port: 22
           script: |
             cd /home/ubuntu/hackathon
