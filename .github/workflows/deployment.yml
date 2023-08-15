@@ -22,11 +22,12 @@ jobs:
         run: npm ci
 
       - name: SSH into AWS and Deploy
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_SSH_USER }}
           password: ${{ secrets.AWS_SSH_KEY }}
+          key: ${{ secrets.AWS_SSH_KEY }}
           port: 22
           script: |
             whoami
