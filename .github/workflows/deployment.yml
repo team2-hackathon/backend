@@ -31,10 +31,10 @@ jobs:
           script: |
             whoami
             cd /home/ubuntu/backend
-            git pull
+            git pull origin main
             npm install 
             cd /home/ubuntu/backend-dev
-            git pull
+            git pull origin development
             npm install
 
 # git add .
