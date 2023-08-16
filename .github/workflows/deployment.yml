@@ -32,7 +32,7 @@ jobs:
             whoami
             echo "hello"
             cd /home/ubuntu/backend
-            sudo git pull
+            git pull
             sudo npm install 
             sudo pm2 restart
 
