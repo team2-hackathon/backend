@@ -30,11 +30,10 @@ jobs:
           port: 22
           script: |
             whoami
-            echo "hello"
             cd /home/ubuntu/backend
             git pull
             sudo npm install 
-            sudo pm2 restart
+            sudo pm2 restart 0
 
 # git add .
 # git commit -m 'develop'
