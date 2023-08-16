@@ -33,7 +33,9 @@ jobs:
             cd /home/ubuntu/backend
             git pull
             npm install 
-            pm2 restart 0
+            cd /home/ubuntu/backend-dev
+            git pull
+            npm install
 
 # git add .
 # git commit -m 'develop'
