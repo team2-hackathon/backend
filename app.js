@@ -58,7 +58,7 @@ app.get("/transaction", ClerkExpressRequireAuth({}), async (req, res) => {
   const connection = await db.promise().getConnection();
   try {
     const query =
-      "SELECT * FROM transactions join users where users.user_id = transactions.user_id and users.user_auth_id = ?";
+      "SELECT transaction_date, transaction_price, transaction_description, transaction_vendor FROM transactions join users where users.user_id = transactions.user_id and  users.user_auth_id = ? order by transaction_date desc;";
     const [rows] = await connection.execute(query, [req.auth.userId]);
     res.status(200).json(rows);
   } catch (error) {
