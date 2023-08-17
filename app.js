@@ -22,15 +22,31 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+// if user deos not exist in db, create user
+
 //GET
 
-app.get("/get", ClerkExpressRequireAuth({}), async (req, res) => {
+app.post("/checkAuth", ClerkExpressRequireAuth({}), async (req, res) => {
   const connection = await db.promise().getConnection();
   try {
-    console.log(req.auth);
-    console.log(res.auth);
-    const [rows, fields] = await connection.execute("SELECT * FROM users");
-    res.send(rows);
+    console.log(req.body);
+
+    const query = "SELECT * FROM users WHERE user_auth_id = ?";
+    const [rows] = await connection.execute(query, [req.auth.userId]);
+
+    if (rows.length === 0) {
+      console.log("User Added");
+      const query =
+        "INSERT INTO users (user_auth_id, user_name, user_email, user_full_name) VALUES (?, ?, ?, ?)";
+      const [res] = await connection.execute(query, [
+        req.auth.userId,
+        req.body.username,
+        req.body.email,
+        req.body.fullName,
+      ]);
+      console.log(res);
+    }
+    res.send("Success. User Authenticated");gi
   } catch (error) {
     console.log(error);
   } finally {
