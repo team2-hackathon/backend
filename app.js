@@ -54,6 +54,21 @@ app.post("/checkAuth", ClerkExpressRequireAuth({}), async (req, res) => {
   }
 });
 
+app.get("/transaction", ClerkExpressRequireAuth({}), async (req, res) => {
+  const connection = await db.promise().getConnection();
+  try {
+    const query =
+      "SELECT * FROM transactions join users where users.user_id = transactions.user_id and users.user_auth_id = ?";
+    const [rows] = await connection.execute(query, [req.auth.userId]);
+    res.status(200).json(rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error fetching transactions" });
+  } finally {
+    connection.release();
+  }
+});
+
 //CREATE EXAMPLE
 // app.get("/create", async (req, res) => {
 //   const { username, email } = req.body;
