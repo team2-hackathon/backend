@@ -61,6 +61,7 @@ app.get("/transaction", ClerkExpressRequireAuth({}), async (req, res) => {
       "SELECT transaction_date, transaction_price, transaction_description, transaction_vendor FROM transactions join users where users.user_id = transactions.user_id and  users.user_auth_id = ? order by transaction_date desc;";
     const [rows] = await connection.execute(query, [req.auth.userId]);
     res.status(200).json(rows);
+    console.log("transactions queried");
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error fetching transactions" });
