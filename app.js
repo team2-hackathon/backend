@@ -46,7 +46,7 @@ app.post("/checkAuth", ClerkExpressRequireAuth({}), async (req, res) => {
       ]);
       console.log(res);
     }
-    res.send("Success. User Authenticated");gi
+    res.send("Success. User Authenticated");
   } catch (error) {
     console.log(error);
   } finally {
@@ -55,28 +55,28 @@ app.post("/checkAuth", ClerkExpressRequireAuth({}), async (req, res) => {
 });
 
 //CREATE EXAMPLE
-app.get("/create", async (req, res) => {
-  const { username, email } = req.body;
-  const connection = await db.promise().getConnection();
-  try {
-    const query =
-      "INSERT INTO users (user_auth_id, user_name, user_email) VALUES (?, ?, ?)";
-    const [result] = await connection.execute(query, [
-      "4SsFJnfkN9Ouzsdpi3j9fyZ111",
-      "John",
-      "john@email.cim",
-    ]);
+// app.get("/create", async (req, res) => {
+//   const { username, email } = req.body;
+//   const connection = await db.promise().getConnection();
+//   try {
+//     const query =
+//       "INSERT INTO users (user_auth_id, user_name, user_email) VALUES (?, ?, ?)";
+//     const [result] = await connection.execute(query, [
+//       "4SsFJnfkN9Ouzsdpi3j9fyZ111",
+//       "John",
+//       "john@email.cim",
+//     ]);
 
-    res
-      .status(201)
-      .json({ message: "User added successfully", userId: result.insertId });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Error creating user" });
-  } finally {
-    connection.release();
-  }
-});
+//     res
+//       .status(201)
+//       .json({ message: "User added successfully", userId: result.insertId });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Error creating user" });
+//   } finally {
+//     connection.release();
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log(
