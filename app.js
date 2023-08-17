@@ -2,9 +2,9 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
 PORT = process.env.PORT || 8080;
-
+const app = express();
 app.use(cors());
 app.use(express.json());
 const db = mysql.createPool({
@@ -24,9 +24,11 @@ app.get("/", (req, res) => {
 
 //GET
 
-app.get("/get", async (req, res) => {
+app.get("/get", ClerkExpressRequireAuth({}), async (req, res) => {
   const connection = await db.promise().getConnection();
   try {
+    console.log(req.auth);
+    console.log(res.auth);
     const [rows, fields] = await connection.execute("SELECT * FROM users");
     res.send(rows);
   } catch (error) {
