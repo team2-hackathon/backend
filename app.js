@@ -37,11 +37,10 @@ app.post("/checkAuth", ClerkExpressRequireAuth({}), async (req, res) => {
     if (rows.length === 0) {
       console.log("User Added");
       const query =
-        "INSERT INTO users (user_auth_id, user_name, user_email, user_full_name) VALUES (?, ?, ?, ?)";
+        "INSERT INTO users (user_auth_id, user_name, user_full_name) VALUES (?, ?,  ?)";
       const [res] = await connection.execute(query, [
         req.auth.userId,
         req.body.username,
-        req.body.email,
         req.body.fullName,
       ]);
       console.log(res);
